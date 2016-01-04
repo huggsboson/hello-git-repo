@@ -29,6 +29,7 @@ clone-hello: clean-clone
 	git clone git://$(DOCKER_MACHINE_IP)/hello.git hello
 
 clone-hello-ssh: clean-clone
+	chmod 600 ./id_rsa
 	ssh-agent /bin/sh -c 'ssh-add ./id_rsa; git clone ssh://git@$(DOCKER_MACHINE_IP):2222/~/hello.git hello-ssh'
 
 clean-clone:
