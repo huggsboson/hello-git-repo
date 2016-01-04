@@ -1,4 +1,5 @@
-A docker image for creating a git repository with no auth or SSH.
+A docker image for creating a git repository.  Accessible over git:// or ssh://
+
 
 Inspired by:
 http://www.florentflament.com/blog/git-ssh-docker-container.html
