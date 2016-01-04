@@ -1,0 +1,22 @@
+FROM hello-git-repo:daemon
+
+RUN apt-get -y install openssh-server
+
+# Setting openssh
+RUN mkdir /var/run/sshd
+RUN sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
+
+# Adding git user
+RUN mkdir -p /home/git/.ssh
+
+# Clearing and setting authorized ssh keys
+ADD id_rsa.pub /home/git
+RUN echo '' > /home/git/.ssh/authorized_keys
+RUN cat /home/git/id_rsa.pub >> /home/git/.ssh/authorized_keys
+
+# Updating shell to bash
+RUN sed -i s#/home/git:/bin/false#/home/git:/bin/bash# /etc/passwd
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+
