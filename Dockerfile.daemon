@@ -1,23 +1,6 @@
-FROM ubuntu:trusty
+FROM huggsboson/hello-git-repo:base
 
-RUN apt-get -y update
-RUN apt-get -y install git
-
-# Adding git user
-RUN adduser --system git
-RUN mkdir -p /home/git
-
-# setup repo
-RUN mkdir -p /home/git/hello.git
-RUN echo "Hello Dockerized Git!" > /home/git/hello.git/hello.txt
-RUN cd /home/git/hello.git \
-  && git init \
-  && git config user.name "Fake" \
-  && git config user.email "fake@fake.com" \
-  && git add . \
-  && git commit -m "Initial commit" \
-  && touch .git/git-daemon-export-ok
-
+RUN touch /home/git/hello.git/.git/git-daemon-export-ok 
 EXPOSE 9418
 CMD ["git", "daemon", "--base-path=/home/git/", "/home/git/"]
 

@@ -1,4 +1,4 @@
-FROM hello-git-repo:daemon
+FROM huggsboson/hello-git-repo:base
 
 RUN apt-get -y install openssh-server
 
